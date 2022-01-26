@@ -1,0 +1,31 @@
+\documentclass{jsarticle}
+\title{}
+\author{4年15組28番 高野昂平}
+\date{}
+
+\begin{document}
+\maketitle
+\section{実行環境}
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{ll}
+            OS & Ubuntu 20.04.2 LTS \\
+            CPU & Intel(R) Core(TM) i9-10900X CPU @ 3.70GHz \\
+            GPU & GeForce RTX 3080 \\
+            メモリ & 32GB \\
+        \end{tabular}
+    \end{center}
+\end{table}
+\section{実行時間比較}
+まず、ある一手を選択するにあたり、その局面における評価を100回行い、また、子ノードを展開する基準を20回の訪問としている。そして、以下の実行時間は最初の局面の評価100回に要した時間の平均となっている。評価を100回行うと、最初の評価と100回目の評価では、評価対象の盤面ノードの状態が異なっており、実行時間に多少の差が出てしまうが、今回はそれらの誤差を無視する。
+\begin{table}[h]
+    \begin{center}
+        \begin{tabular}{c|c|c}
+            & CPU & GPU \\ \hline
+        1 & 5.814 & 218.371 \\ \hline
+        256 & 1462.79 & 212.111 \\ \hline
+        512 & 2910.06 & 234.481 \\ 
+        \end{tabular}
+    \end{center}
+\end{table}
+\end{document}
