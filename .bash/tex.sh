@@ -27,7 +27,7 @@ if [ -f ${dirname}/${filename} ]; then
         exit 1
     fi
 
-    echo "x" | docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja dvipdfmx ${basename}.dvi
+    echo "x" | docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja dvipdfmx -o pdf/${basename}.pdf ${basename}.dvi
     echo -e "\n${basename}.pdf を作成しました\n"
 
     rm -f ${basename}.log ${basename}.aux ${basename}.dvi
@@ -36,9 +36,9 @@ else
     exit 1
 fi
 
-if [ -f ${basename}.pdf ]; then
+if [ -f ./pdf/${basename}.pdf ]; then
     echo -e "${basename}.pdf を開きます"
-    code ${basename}.pdf
+    code pdf/${basename}.pdf
 else
     echo "ファイル: ${basename}.pdf が見つかりません"
     exit 1
