@@ -13,7 +13,7 @@ basename=${filename%.*}
 extension=${filename##*.}
 
 if [ "${extension}" != "tex" ]; then
-    echo "引数: tex ファイルを指定してください"
+    echo "引数: .tex ファイルを指定してください"
     exit 1
 fi
 
@@ -30,7 +30,7 @@ if [ -f ${dirname}/${filename} ]; then
     echo "x" | docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja dvipdfmx -o pdf/${basename}.pdf ${basename}.dvi
     echo -e "\n${basename}.pdf を作成しました\n"
 
-    rm -f ${basename}.log ${basename}.aux ${basename}.dvi
+    rm -f ${basename}.log ${basename}.aux ${basename}.dvi ${basename}.toc
 else
     echo "ファイル: ${dirname}/${filename} が見つかりません"
     exit 1
