@@ -5,12 +5,20 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+# 引数を変数に代入
 arg=$1
 
+# 得られた引数をもとにファイル名(拡張子付き)、ディレクトリ名、ファイル名(拡張子無し)、拡張子の4つに展開する
+# シェルの変数展開を用いている。
+# ${VAR#PATTERN} : 前方一致(最短マッチ)
+# ${VAR##PATTERN}: 前方一致(最長マッチ)
+# ${VAR%PATTERN} : 後方一致(最短マッチ)
+# ${VAR%%PATTERN}: 後方一致(最長マッチ)
 filename=$(basename $arg)
 dirname=$(dirname $arg)
 basename=${filename%.*}
 extension=${filename##*.}
+
 
 if [ "${extension}" != "tex" ]; then
     echo "引数: .tex ファイルを指定してください"
