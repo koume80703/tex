@@ -19,13 +19,12 @@ dirname=$(dirname $arg)
 basename=${filename%.*}
 extension=${filename##*.}
 
-
 if [ "${extension}" != "tex" ]; then
     echo "引数: .tex ファイルを指定してください"
     exit 1
 fi
 
-if [ -f ${dirname}/${filename} ]; then
+if [ -f ./${dirname}/${filename} ]; then
     echo "x" | docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja platex ${dirname}/${filename}
 
     echo "x" | docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja platex ${dirname}/${filename}
@@ -45,7 +44,7 @@ else
 fi
 
 if [ -f ./pdf/${basename}.pdf ]; then
-    echo -e "${basename}.pdf を開きます"
+    echo -e "${basename}.pdf を開きます\n"
     code pdf/${basename}.pdf
 else
     echo "ファイル: ${basename}.pdf が見つかりません"
