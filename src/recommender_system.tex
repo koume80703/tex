@@ -1,0 +1,103 @@
+\documentclass{jsarticle}
+\title{情報科学特別講義B}
+\author{M1-55-17 高野 昂平}
+\date{}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{wrapfig}
+
+\begin{document}
+\maketitle
+\section{共通課題: 推薦システムの観察}
+観察対象のサービスとしてAppleの提供する音楽ストリーミングサービスApple Musicを取り上げる。
+\subsection{推薦されているアイテム}
+\subsubsection{ピックアップ}
+ピックアップは、今までの視聴履歴を元に後に紹介するアイテムをまとめて表示している。
+\begin{figure}[htbp]
+    \begin{minipage}[b]{0.48\linewidth}
+        \begin{center}
+            \includegraphics[width=\linewidth]{img/pickup.png}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[b]{0.48\linewidth}
+        \begin{center}
+            \includegraphics[width=\linewidth]{img/pickup2.png}
+        \end{center}
+    \end{minipage}
+    \caption{ピックアップ}
+    \label{fig:pickup}
+\end{figure}
+\par 今回、表示されたのは、
+\begin{itemize}
+    \item 新しくリリースされる楽曲(ニューリリース)
+    \item お気に入りプレイリストに登録された曲を元にしたアイテム(Mix)
+    \item 最近視聴しているグループのアイテム(ステーション)
+    \item 昔試聴していたグループに関連するアイテム(楽曲)
+    \item 最近試聴しているグループに関連するアイテム(ステーション)
+    \item 今までの視聴履歴全てを元にしたアイテム(ステーション)
+\end{itemize}
+であった。
+\subsubsection{ステーション}
+Apple Musicにはステーションという機能があり、各ステーションは音楽のジャンルやアーティストなどごとに存在し、例えば、J-PopステーションであればJ-Popを、サカナクションステーションであればサカナクションの曲やサカナクションの曲調に近い曲をランダム(実際にランダムなのかは不明)に流していく機能がある。プレイリストを生成するわけではなく、一度ステーションの再生を始めると次々ステーションのテーマに沿った曲を流していく。ユーザは次の曲が何かは見ることができるが、どんな曲がこのステーションに含まれているかは知ることができない。
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/station.png}
+        \caption{ステーション}
+        \label{fig:station}
+    \end{center}
+\end{figure}
+\subsubsection{Mix}
+Mixは、ユーザの聴いた曲をジャンルごとに分け、それらをまとめてプレイリストとする機能である。つまり、プレイリスト生成機能である。ステーションとは異なり、プレイリストを生成するので、あるMixにどんな曲が含まれているかは知ることができる。
+\begin{figure}[htbp]
+    \begin{minipage}[b]{0.48\linewidth}
+        \begin{center}
+            \includegraphics[width=\linewidth]{img/Mix.png}
+            \caption{Mix}
+            \label{fig:Mix}
+        \end{center}
+    \end{minipage}
+    \begin{minipage}[b]{0.48\linewidth}
+        \begin{center}
+            \includegraphics[width=\linewidth]{img/inMix.png}
+            \caption{Favorites Mixの中身}
+            \label{fig:inMix}
+        \end{center}
+    \end{minipage}
+\end{figure}
+\par この画像内で生成されている3つのMixは、Favorites Mix, Get Up! Mix, Chill Mixでそれぞれお気に入り関連のプレイリスト、アップテンポな曲のプレイリスト、落ち着く曲のプレイリストといったようなジャンルとなっている。どれも、今まで聴いた曲やアーティストの中からテーマに合った曲をプレイリストとして生成している。
+\subsubsection{リプレイ}
+リプレイは今まで聴いてきた曲を各年ごとに分類し、それらをまとめてくれる機能である。
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/replay.png}
+        \caption{リプレイ}
+        \label{fig:replay}
+    \end{center}
+\end{figure}
+\par Apple Musicに登録した2020年から再生した曲を年ごとに分類し、リプレイとして表示されている。
+\subsection{どの種類の推薦なのか}
+\subsubsection{フィードバックについて}
+\begin{wrapfigure}{r}[0pt]{0.3\linewidth}
+    \begin{center}
+        \includegraphics[width=0.8\linewidth]{img/love_or_not.png}
+        \caption{明示的フィードバック}
+        \label{fig:love_or_not}
+    \end{center}
+\end{wrapfigure}
+ユーザからのフィードバックとしては、暗黙的フィードバックが主なフィードバックとなっているが、明示的なフィードバックもApple Music上で可能となっている。Apple Music内での暗黙的フィードバックと明示的フィードバックそれぞれについて以下にまとめた。
+\begin{description}
+    \item[暗黙的フィードバック] \mbox{}\\
+        Apple Musicにおける暗黙的フィードバックとして、ライブラリ及び作成したプレイリスト、音楽の視聴履歴がある。 
+    \item[明示的フィードバック] \mbox{}\\
+        明示的フィードバックとしては、"ラブ"という機能と"これと似たおすすめを減らす"という機能がそれにあたる(図\ref{fig:love_or_not})。
+\end{description}
+\subsection{推薦アイテムの更新}
+iPhone上のApple MusicとMacBook上でのApple Musicそれぞれで推薦アイテムを比較したが内容は同じものであった。また、ページを更新してもアイテムの更新はなかったことから、新たに楽曲を聴かないと、更新されることはないのではないかと考える。このレポート上で、載せた推薦アイテムと後日改めて確認した推薦アイテムは異なっており、その間にいくつか楽曲を再生したことから視聴履歴が更新され、それによって推薦アイテムが更新されたものと予想できる。
+\subsubsection{推薦手法}
+内容ベース推薦及び協調型推薦のどちらも使われているのではないかと考える。
+\par まず、今まで聴いてきたアーティストを元に似たような楽曲が推薦されることからアイテムの中身を元に推薦を行っているものと考えられる。例えば、K-popグループを聴いたことによって、似たような他のグループが推薦されていることがあった(図\ref{fig:pickup})。
+\par また、協調型推薦が用いられていると考えたのは図\ref{fig:pickup}右図の〇〇ファンのトレンドという表記である。これによって、そのアーティストの曲を聴いている人が他にもこのような楽曲を聴いていることからユーザにそれを薦めようという協調型推薦の流れがApple Musicのシステム上であることが予想できる。
+\subsection{推薦結果の品質}
+推薦結果の品質は悪くないように思える。1ユーザとして、Apple Musicを利用した中で推薦システムの品質で不満に思ったことはなく、特にステーションという機能は新しい楽曲との出会いを探す上で有用なものであった。ただ、ラブやおすすめに表示しないといった明示的なフィードバックがどれくらい推薦システムの質の向上に活きているのかは不明である。
+\section{選択課題: 推薦システムの構築}
+\end{document}
