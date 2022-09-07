@@ -37,7 +37,7 @@ if [ -f ./${dirname}/${filename} ]; then
     echo "x" | docker run --rm -v $PWD:/workdir paperist/alpine-texlive-ja dvipdfmx -o pdf/${basename}.pdf ${basename}.dvi
     echo -e "\n${basename}.pdf を作成しました\n"
 
-    rm -f ${basename}.log ${basename}.aux ${basename}.dvi ${basename}.toc
+    rm -f ${basename}.log ${basename}.aux ${basename}.dvi ${basename}.toc ${basename}.out
 else
     echo "ファイル: ${dirname}/${filename} が見つかりません"
     exit 1
