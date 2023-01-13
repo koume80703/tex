@@ -1,0 +1,192 @@
+\documentclass{jsarticle}
+\title{コミュニケーション特論}
+\author{M1-55-17 高野昂平}
+\date{}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{listings, jvlisting}
+\lstset{
+    language = {Python},
+    frame = single,
+    breaklines = true,
+    numbers = left
+}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\hypersetup{
+    hidelinks=true
+}
+
+\begin{document}
+\maketitle
+
+\section{中間課題プレゼンテーション}
+\subsection{データセットについて}
+アヤメとワインのデータについて可視化を行った。
+\begin{description}
+    \item[アヤメデータ] \mbox{}\\
+        ガクの長さと幅、花びらの長さと幅、アヤメの種類という5つの属性を持つ。
+    \item[ワインデータ] \mbox{}\\
+        全部で14もの属性を持つが、散布図行列が複雑になることを考慮し、6つの属性(アルコール度数、リンゴ酸、ミネラル、マグネシウム、全フェノール量、種類)に絞った。
+\end{description}
+\par Pythonのsklearn.datasetsというモジュールからデータを取得した。オプションを指定することで、DataFrameとしてデータを取得することが可能。
+\begin{lstlisting}[caption = データセットの取得]
+    from sklearn import datasets
+
+    df_iris = datasets.load_iris(as_frame=True).frame
+\end{lstlisting}
+\newpage
+\subsection{アヤメデータの可視化}
+散布図行列と並行座標法を用いて可視化を行った。
+取得したデータは以下のようになっている。
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/iris_df.png}
+        \caption{アヤメデータ}
+        \label{fig:iris_df}
+    \end{center}
+\end{figure}
+\subsubsection{散布図行列}
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/iris_matrix.png}
+        \caption{アヤメデータの散布図行列}
+        \label{fig:iris_matrix}
+    \end{center}
+\end{figure}
+散布図行列によって、それぞれの属性同士の相関を見ることができる。この図においてわかることとして、
+\begin{itemize}
+    \item ガクの長さと幅に相関がある
+    \item 花びらの長さと幅に相関がある
+    \item 種類0は花びらの長さが短く、ガクの幅が広い傾向にある
+\end{itemize}
+などが挙げられる。
+\subsubsection{並行座標法}
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/iris_parallel.png}
+        \caption{アヤメデータの平行座標法}
+        \label{fig:iris_parallel}
+    \end{center}
+\end{figure}
+平行座標法では、アヤメの種類ごとにどの属性に強い特徴が現れるのか見ることができる。
+この図から分かる事として、
+\begin{itemize}
+    \item 種類0は他の2種類に比べて特徴が逆になっている。
+    \item 種類1,2の特徴は似ている。
+    \item 花びらのサイズを見てみると種類0,2で大きく異なっているため、実際に花を見たとき見た目にかなり違いが出るのではないかと思う。
+\end{itemize}
+\subsection{ワインデータの可視化}
+散布図行列と並行座標法に加え、アルコール度数について単軸散布図を生成した。
+取得したデータは以下のようになっている。
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/wine_df.png}
+        \caption{ワインデータ}
+        \label{fig:wine_df}
+    \end{center}
+\end{figure}
+\subsubsection{散布図行列}
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/wine_matrix.png}
+        \caption{ワインデータの散布図行列}
+        \label{fig:wine_matrix}
+    \end{center}
+\end{figure}
+ワインデータは属性数が多く、散布図行列にしたときに1つ1つのグラフが小さくなり、視認性が落ちてしまった。
+\par ワインデータを散布図にしたところ、属性同士の相関は特にないように見える。
+\subsubsection{並行座標法}
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/wine_parallel.png}
+        \caption{ワインデータの平行座標法}
+        \label{fig:wine_parallel.png}
+    \end{center}
+\end{figure}
+平行座標法を用いた結果、各ワインごとの特徴が見られた。
+\begin{itemize}
+    \item 種類2のワインはリンゴ酸\verb#(malic_acid)#を多く含有しているしているが、その含有量は広く分布している
+    \item アルコール含有量は種類0のワインが最も高い
+    \item ミネラル\verb#(ash)#、マグネシウムでわかりやすいワインごとの特徴は見られなかった
+\end{itemize}
+\subsubsection{アルコール度数についての単軸散布図}
+散布図行列や平行座標法では、値が同じ軸でプロットされており、見づらいことがあるので、単軸散布図にて軸をずらしたもので可視化を行なってみる。
+\begin{figure}[htbp]
+    \begin{center}
+        \includegraphics[width=12cm]{img/alcohol.png}
+        \caption{アルコール度数についての単軸散布図}
+        \label{fig:alcohol}
+    \end{center}
+\end{figure}
+単軸散布図にした結果、アルコール含有量のワインごとの特徴を特徴を分かりやすくみることができた。
+\subsection{共有URL}
+\href{https://colab.research.google.com/drive/1fGvZuo3kW_uPFLdfFT2vNC8Mj4-_Vjl_?usp=sharing}{wine\_iris.ipynb}
+\section{プレゼンの感想}
+\subsection*{川本}
+\begin{itemize}
+    \item 散布図行列を用いていたが、属性数が多く、1つ1つの散布図の特徴を掴むのが難しくなっている。属性数を絞ることで散布図行列を見やすくできると思う。
+    \item クレカの取引の正常、不正それぞれの金額を比較している棒グラフは見やすく、違いが明瞭であった。
+    \item 不正取引の場合、取引金額が正常取引の元に比べて、多くなっているのがグラフで見て取れた。
+    \item 1日の行動を円グラフで表現するという試みはしばしば目にするが、実際にこうして可視化してみると、限られた1日という時間を有意義に使うための改善点などが見えるため、結構有用な手法なのだと再認識した。
+\end{itemize}
+\subsection*{市野}
+\begin{itemize}
+    \item Linux gitの履歴をデータセットで落とせることを初めて知った。
+    \item プレゼンでも触れていたが、このデータを可視化することによって、世界の開発規模を目で見て理解することができ、面白かった。
+    \item 同様に、ポケモンのデータセットがあることも初めて知った。
+    \item ポケモンについては、ゲームをプレイしたこともあり、非常に興味深い内容であった。
+    \item 質疑応答の時間でも触れられていたが、合計能力値ごとに能力値の分布を散布図行列にて可視化してみると、何らかの相関を見ることができるかもしれない。
+\end{itemize}
+\subsection*{本多}
+\begin{itemize}
+    \item 3つのグラフを最初別々にしたものを紹介しており、その際に、グラフを重ね合わせた方が見やすいなと感じていたが、その後、重ね合わせたものを紹介していたので、温度変化の違いを認識しやすくよかったと思う。
+    \item 3つのグラフの重ね合わせですら、若干視認性が落ちているように思うので、これ以上の重ね合わせは可視化のメリットを損なうので避けるべきかもしれない。
+    \item 質疑応答の際のコメントでも触れられていたが、北半球と南半球の気温上昇の増加幅が異なるのは大陸の占める割合が異なっていることが大きいのではないかと思う。
+    \item マイナンバーの交付率において、宮崎県の交付率が高くなっていたのは驚いた。
+    \item また、東京は人口が非常に多いにも関わらず、交付率が高くなっており、個人的な予想とは異なっていた。
+\end{itemize}
+\subsection*{二瓶}
+\begin{itemize}
+    \item 乗降客数を地図上に表現するというのは、イメージを掴みやすく、分かりやすい可視化であったと思う。
+    \item コロナが始まった2020年の乗降客数の減少幅が自分の予想とは異なり、思ったよりも小さいものであった。
+\end{itemize}
+\subsection*{栗原}
+\begin{itemize}
+    \item 梅雨の期間を年ごとに可視化しているので、どの年がどれくらい梅雨の期間であったのか分かりやすかった。
+    \item 事象の起きている期間を可視化する事例は他にもありそうなので、参考になった。
+    \item 最近、春秋の期間が短くなっている気がするので、ある気温を基準として、その気温を超える日数もしくは下回る日数を可視化できれば、春秋の期間の変化を見れるのではないかと思う。
+    \item ビッグマック指数というもの自体は知っていたが、それがデータセットとして配布されていることを初めて知った。
+    \item 日本のビッグマックの価格は世界に比べて、それほど高くなく、低い部類なのだと知った。
+    \item 日本の価格推移をグラフにしていたが、他国の価格推移も見てみたいと思った。
+    \item 近年、日本の経済状況が芳しくないので、他国の価格推移と比較することで、日本の不況が分かりやすくなるかもしれない。
+\end{itemize}
+\subsection*{萩田}
+\begin{itemize}
+    \item 最近、春と秋の期間が短くなっている気がしたのは自分も同じでその疑問を可視化によって検証しているのは面白かった。
+    \item また、夏が以前よりも暑いものとなっていることが感覚的には感じられるものであったが、可視化によってそれが検証されていてよかった。
+    \item 夏と冬を定義する上で用いているのが最高気温と最低気温であるにも関わらず、グラフにしたときに縦軸を平均気温としているのは見ている側の混乱を招く恐れがあるのではないかと思う。
+    \item 可視化を行う際に縦軸が示すものが可視化の目的に沿ったものにする必要性を学んだ。
+\end{itemize}
+\subsection*{斉藤}
+\begin{itemize}
+    \item 販売台数の推移を見るのであれば、サンバースト図を用いるのではなく、棒グラフを用いた方が見やすいのではないかと思う。
+    \item 一方、その年の販売台数を表現する際に、サンバースト図を用いているのは大変見やすく、年ごとの販売台数を見ることができると同時にある年における販売メーカーごとの販売台数の比較ができたりと良かったように思う。
+    \item 定期券の割合を考えたことがなかったので、それを可視化するという着眼点は面白いなと思った。
+\end{itemize}
+\subsection*{新堀}
+\begin{itemize}
+    \item 川崎市の区割りによって人口が綺麗に分けられているのが可視化によって分かりやすくまとめられていた。
+    \item オセロの定石を始めた知ったのと、それぞれの定石に名前がついており、それをツリーとして表現しているのは面白いと思った。
+    \item 定石の名前だけだとイメージが湧きづらいので、ノードに盤面図の情報を持たせ、ノードをクリックしたときにその盤面が見えるようになるなど改善しがいのある可視化だと感じた。
+\end{itemize}
+\subsection*{山縣}
+\begin{itemize}
+    \item 1960年あたりで入場者数が最も多くなっているにも関わらず、興行収入の伸びが悪いのは意外であった。
+    \item 映画のチケット一枚あたりの値段の推移があると1960年での興行収入の伸びの悪さを裏付ける証拠となりうるかもしれない。
+\end{itemize}
+\section{講義の感想}
+この講義では、可視化手法とその最新の研究動向について学んだ。講義前半では、実習が毎時間あったのでやりがいがあって楽しかった。講義後半ではプレゼンを行なった。学生それぞれの可視化対象が自分の知らない分野のものであったり、可視化方法が工夫されていて聞いていて面白かった。
+\par また、プレゼンはそれぞれ独自の観点で可視化をおこなっており、見ていて面白かった。プレゼンの環境自体もよく、やりやすかった。
+\par この講義で得た可視化手法や関連する知識をもとに研究成果の発表などに生かしていきたいと思った。
+\end{document}
